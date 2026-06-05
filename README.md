@@ -9,11 +9,11 @@ Home Assistant custom integration for polling an NMMiner/NerdMiner-style `/swarm
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=samsharp99&repository=ha_hacs_nmminer_monitor)
 
-## HACS install from your GitHub repo
+## HACS installation
 
 1. In Home Assistant, open HACS.
 2. Open the three-dot menu and choose **Custom repositories**.
-3. Paste your repository URL, for example:
+3. Paste the repository URL:
 
    ```text
    https://github.com/samsharp99/ha_hacs_nmminer_monitor
