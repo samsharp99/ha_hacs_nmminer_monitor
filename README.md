@@ -10,7 +10,7 @@ Home Assistant custom integration for polling an NMMiner/NerdMiner-style `/swarm
 4. Paste your repository URL, for example:
 
    ```text
-   https://github.com/YOUR_USERNAME/nmminer_swarm
+   https://github.com/samsharp99/ha_hacs_nmminer_monitor
    ```
 
 5. Select **Integration** as the repository type.
