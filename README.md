@@ -4,19 +4,18 @@ Home Assistant custom integration for polling an NMMiner/NerdMiner-style `/swarm
 
 ## HACS install from your GitHub repo
 
-1. Push this repository to GitHub.
-2. In Home Assistant, open HACS.
-3. Open the three-dot menu and choose **Custom repositories**.
-4. Paste your repository URL, for example:
+1. In Home Assistant, open HACS.
+2. Open the three-dot menu and choose **Custom repositories**.
+3. Paste your repository URL, for example:
 
    ```text
    https://github.com/samsharp99/ha_hacs_nmminer_monitor
    ```
 
-5. Select **Integration** as the repository type.
-6. Add it, then install **NMMiner Swarm** from HACS.
-7. Restart Home Assistant.
-8. Go to **Settings → Devices & services → Add integration → NMMiner Swarm**.
+4. Select **Integration** as the repository type.
+5. Add it, then install **NMMiner Swarm** from HACS.
+6. Restart Home Assistant.
+7. Go to **Settings → Devices & services → Add integration → NMMiner Swarm**.
 
 ## Endpoint
 
@@ -47,42 +46,6 @@ A custom Home Assistant integration that polls an NMMiner/NerdMiner-style `swarm
   - valid shares
   - temperature, if available
   - best/pool/last/network difficulty
-
-## Install
-
-Copy this folder:
-
-```text
-custom_components/nmminer_swarm
-```
-
-into your Home Assistant config directory:
-
-```text
-/config/custom_components/nmminer_swarm
-```
-
-Restart Home Assistant.
-
-Then go to:
-
-```text
-Settings → Devices & services → Add integration → NMMiner Swarm
-```
-
-Use either a full swarm URL:
-
-```text
-http://192.168.1.100/swarm
-```
-
-or a host/base URL:
-
-```text
-192.168.1.100
-```
-
-The integration appends `/swarm` automatically when needed.
 
 ## Notes
 
