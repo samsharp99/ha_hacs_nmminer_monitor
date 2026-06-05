@@ -13,12 +13,21 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import CONF_NAME, PERCENTAGE, UnitOfInformation, UnitOfTemperature
+from homeassistant.const import CONF_NAME, PERCENTAGE, UnitOfInformation, UnitOfTemperature, UnitOfTime
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .api import parse_difficulty, parse_float, parse_hashrate, parse_int
+from .api import (
+    parse_difficulty,
+    parse_difficulty_session,
+    parse_float,
+    parse_hashrate,
+    parse_int,
+    parse_string,
+    parse_uptime_session,
+    parse_uptime_total,
+)
 from .const import DOMAIN
 from .coordinator import NMMinerDataUpdateCoordinator
 
@@ -121,6 +130,33 @@ DEVICE_SENSORS: tuple[NMMinerDeviceSensorDescription, ...] = (
         translation_key="net_diff",
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda data: parse_difficulty(data.get("netDiff")),
+    ),
+    NMMinerDeviceSensorDescription(
+        key="best_diff_session",
+        translation_key="best_diff_session",
+        state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda data: parse_difficulty_session(data.get("bestDiff")),
+    ),
+    NMMinerDeviceSensorDescription(
+        key="pool",
+        translation_key="pool",
+        value_fn=lambda data: parse_string(data.get("pool")),
+    ),
+    NMMinerDeviceSensorDescription(
+        key="uptime_session",
+        translation_key="uptime_session",
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        device_class=SensorDeviceClass.DURATION,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        value_fn=lambda data: parse_uptime_session(data.get("uptime")),
+    ),
+    NMMinerDeviceSensorDescription(
+        key="uptime_total",
+        translation_key="uptime_total",
+        native_unit_of_measurement=UnitOfTime.SECONDS,
+        device_class=SensorDeviceClass.DURATION,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        value_fn=lambda data: parse_uptime_total(data.get("uptime")),
     ),
 )
 
@@ -226,15 +262,29 @@ class NMMinerDeviceSensor(CoordinatorEntity[NMMinerDataUpdateCoordinator], Senso
         super().__init__(coordinator)
         self.entity_description = description
         self._ip = ip
+        self._entry_id = entry_id
+        self._integration_name = integration_name
         safe_ip = ip.replace(".", "_").replace(":", "_")
         self._attr_unique_id = f"{entry_id}_{safe_ip}_{description.key}"
-        self._attr_device_info = {
-            "identifiers": {(DOMAIN, f"{entry_id}_{ip}")},
-            "name": f"{integration_name} {ip}",
+
+    @property
+    def device_info(self) -> dict:
+        device = self.coordinator.data.devices.get(self._ip) if self.coordinator.data else None
+        info: dict = {
+            "identifiers": {(DOMAIN, f"{self._entry_id}_{self._ip}")},
+            "name": f"{self._integration_name} {self._ip}",
             "manufacturer": "NMMiner",
-            "configuration_url": f"http://{ip}",
-            "via_device": (DOMAIN, entry_id),
+            "configuration_url": f"http://{self._ip}",
+            "via_device": (DOMAIN, self._entry_id),
         }
+        if device:
+            board_type = device.raw.get("boardType")
+            if board_type:
+                info["model"] = board_type
+            version = device.raw.get("version")
+            if version:
+                info["sw_version"] = version
+        return info
 
     @property
     def native_value(self) -> Any:

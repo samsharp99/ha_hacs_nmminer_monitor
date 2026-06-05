@@ -52,6 +52,18 @@
       },
       "net_diff": {
         "name": "Network difficulty"
+      },
+      "best_diff_session": {
+        "name": "Best difficulty (session)"
+      },
+      "pool": {
+        "name": "Pool"
+      },
+      "uptime_session": {
+        "name": "Uptime (since restart)"
+      },
+      "uptime_total": {
+        "name": "Uptime (total)"
       }
     }
   }

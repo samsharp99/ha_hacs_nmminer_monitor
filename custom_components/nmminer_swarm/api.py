@@ -96,6 +96,7 @@ def normalize_url(url: str) -> str:
 
 _RATE_RE = re.compile(r"^\s*([-+]?\d+(?:\.\d+)?)\s*([KMGTPE]?)(?:H/s)?\s*$", re.IGNORECASE)
 _DIFF_RE = re.compile(r"^\s*([-+]?\d+(?:\.\d+)?)\s*([KMGTPE]?)\s*$", re.IGNORECASE)
+_UPTIME_RE = re.compile(r"^(\d+)d\s+(\d{2}):(\d{2}):(\d{2})$")
 
 _MULTIPLIERS = {
     "": 1,
@@ -143,6 +144,57 @@ def parse_difficulty(value: Any) -> float | None:
     number = float(match.group(1))
     suffix = match.group(2).upper()
     return number * _MULTIPLIERS.get(suffix, 1)
+
+
+def parse_difficulty_session(value: Any) -> float | None:
+    """Parse session best diff (first segment) from strings like '0.000 /480.5K'."""
+    if value is None:
+        return None
+    text = str(value).strip()
+    if "/" in text:
+        text = text.split("/")[0].strip()
+    if not text or text.upper() == "N/A":
+        return None
+    match = _DIFF_RE.match(text)
+    if not match:
+        return parse_float(text)
+    number = float(match.group(1))
+    suffix = match.group(2).upper()
+    return number * _MULTIPLIERS.get(suffix, 1)
+
+
+def _parse_uptime_segment(segment: str) -> int | None:
+    """Parse a single uptime segment like '000d 00:35:01' into total seconds."""
+    match = _UPTIME_RE.match(segment.strip())
+    if not match:
+        return None
+    d, h, m, s = int(match.group(1)), int(match.group(2)), int(match.group(3)), int(match.group(4))
+    return d * 86400 + h * 3600 + m * 60 + s
+
+
+def parse_uptime_session(value: Any) -> int | None:
+    """Parse session uptime (first segment) from '000d 00:35:01/156d 17:45:54' into seconds."""
+    if value is None:
+        return None
+    return _parse_uptime_segment(str(value).split("/")[0])
+
+
+def parse_uptime_total(value: Any) -> int | None:
+    """Parse total uptime (second segment) from '000d 00:35:01/156d 17:45:54' into seconds."""
+    if value is None:
+        return None
+    parts = str(value).strip().split("/")
+    if len(parts) < 2:
+        return None
+    return _parse_uptime_segment(parts[1])
+
+
+def parse_string(value: Any) -> str | None:
+    """Return a stripped string, or None for empty/N/A values."""
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text if text and text.upper() != "N/A" else None
 
 
 def parse_float(value: Any) -> float | None:
