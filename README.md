@@ -67,3 +67,4 @@ A custom Home Assistant integration that polls an NMMiner/NerdMiner-style `swarm
 [commits]: https://github.com/samsharp99/ha_hacs_nmminer_monitor/commits/main
 [commits-shield]: https://img.shields.io/github/commit-activity/y/samsharp99/ha_hacs_nmminer_monitor.svg?style=for-the-badge
 [releases-shield]: https://img.shields.io/github/release/samsharp99/ha_hacs_nmminer_monitor.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/samsharp99/ha_hacs_nmminer_monitor.svg?style=for-the-badge
