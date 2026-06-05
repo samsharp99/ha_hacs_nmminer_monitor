@@ -1,0 +1,8 @@
+{
+  "name": "NMMiner Swarm",
+  "render_readme": true,
+  "domains": [
+    "sensor"
+  ],
+  "homeassistant": "2024.6.0"
+}

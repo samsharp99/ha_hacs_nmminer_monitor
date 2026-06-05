@@ -1,0 +1,58 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "NMMiner Swarm",
+        "description": "Enter the base URL or swarm endpoint URL. Examples: http://192.168.1.100/swarm or 192.168.1.100",
+        "data": {
+          "name": "Name",
+          "url": "Swarm endpoint or host",
+          "scan_interval": "Scan interval in seconds"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the NMMiner swarm endpoint."
+    },
+    "abort": {
+      "already_configured": "This NMMiner swarm endpoint is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total_workers": {
+        "name": "Total workers"
+      },
+      "total_hash_rate": {
+        "name": "Total hash rate"
+      },
+      "best_diff": {
+        "name": "Best difficulty"
+      },
+      "hash_rate": {
+        "name": "Hash rate"
+      },
+      "rssi": {
+        "name": "RSSI"
+      },
+      "free_heap": {
+        "name": "Free heap"
+      },
+      "valid": {
+        "name": "Valid shares"
+      },
+      "temperature": {
+        "name": "Temperature"
+      },
+      "pool_diff": {
+        "name": "Pool difficulty"
+      },
+      "last_diff": {
+        "name": "Last difficulty"
+      },
+      "net_diff": {
+        "name": "Network difficulty"
+      }
+    }
+  }
+}
