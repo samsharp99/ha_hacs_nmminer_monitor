@@ -60,3 +60,10 @@ A custom Home Assistant integration that polls an NMMiner/NerdMiner-style `swarm
 - Difficulty values like `139.0T` and `480.5K` are normalized to plain numeric values.
 - Device sensors are added dynamically when new IPs appear in the swarm response.
 - If a device disappears from the response, its sensors remain but show unavailable values until it returns.
+
+[hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
+[hacs]: https://hacs.xyz
+[releases]: https://github.com/samsharp99/ha_hacs_nmminer_monitor/releases
+[commits]: https://github.com/samsharp99/ha_hacs_nmminer_monitor/commits/main
+[commits-shield]: https://img.shields.io/github/commit-activity/y/samsharp99/ha_hacs_nmminer_monitor.svg?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/release/samsharp99/ha_hacs_nmminer_monitor.svg?style=for-the-badge
