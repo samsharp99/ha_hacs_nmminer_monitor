@@ -1,6 +1,13 @@
 # NMMiner Swarm
 
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Activity][commits-shield]][commits]
+[![License][license-shield]](LICENSE)
+[![hacs][hacsbadge]][hacs]
+
 Home Assistant custom integration for polling an NMMiner/NerdMiner-style `/swarm` REST endpoint.
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=samsharp99&repository=ha_hacs_nmminer_monitor)
 
 ## HACS install from your GitHub repo
 
